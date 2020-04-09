@@ -21,22 +21,20 @@ export class Employee{
 })
 export class HttpClientService {
 
-  constructor(
-    private httpClient:HttpClient
-  ) { 
+  private apiUrl = 'http://localhost:8080/evolent/api';
+  constructor(private httpClient:HttpClient) {
      }
 
-     getEmployees()
-  {
-    console.log("test call");
-    return this.httpClient.get<Employee[]>('http://localhost:8080/evolent/api/employee/allemployee');
+     getEmployees() {
+    return this.httpClient.get<Employee[]>(this.apiUrl + '/employee/allemployee');
   }
 
   public deleteEmployee(employee) {
-    return this.httpClient.delete<Employee>("http://localhost:8080/evolent/api/employee/changestatus" + "/"+ employee.id);
+    return this.httpClient.delete<Employee>(this.apiUrl + '/employee/changestatus' + '/' + employee.id);
   }
 
   public createEmployee(employee) {
-    return this.httpClient.post<Employee>("http://localhost:8080/evolent/api/employee/createmployee", employee);
+    return this.httpClient.post<Employee>(this.apiUrl + '/employee/createmployee', employee);
   }
 }
+
