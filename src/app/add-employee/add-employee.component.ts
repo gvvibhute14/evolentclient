@@ -13,6 +13,7 @@ export class AddEmployeeComponent implements OnInit {
      user: Employee = new Employee(null,"","","","",true,"",'',true);
      error_message: string[];
      error_message1: string[];
+     error_message_general: string[]=['Contact to system admin at internalerror@evolent.com'];
   constructor(
     private httpClientService: HttpClientService
   ) { }
@@ -30,7 +31,14 @@ export class AddEmployeeComponent implements OnInit {
         },
         error => {
           console.log('oops', error.error);
-          this.error_message = error.error.details;
+          if(error.error.message=== 'BAD_REQUEST')
+          { 
+            this.error_message = error.error.details;
+          }
+          else{
+            this.error_message = this.error_message_general;
+             
+          }
         });
 
   };
